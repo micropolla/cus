@@ -1,0 +1,10 @@
+/* make a heart shape in the center */
+
+.heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200px;
+    color: red;
+}
