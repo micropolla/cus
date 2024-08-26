@@ -4,6 +4,8 @@ layout: default
 
 ## Welcome to another page
 
-_yay_
+_i hate ni_
+
+[macumba cat foto](./../assets/img/logo.png)
 
 [back](./)
