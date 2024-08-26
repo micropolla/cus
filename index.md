@@ -1,3 +1,3 @@
-ESTO ES UNA PAGINA DE **PRUEBA**
+Hola mi gente.
 
-[PAGINA 2](./pages/another-page.md)
+[todas las paginas (index)](./pages/index.md)
