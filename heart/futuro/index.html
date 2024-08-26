@@ -4,58 +4,63 @@
   <title>3D Cube</title>
   <style>
     .cube-container {
-      perspective: 1000px;
-      width: 200px;
-      height: 200px;
-      border: 1px solid #ccc;
-    }
-
-    .cube {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.5s;
-    }
-
-    .face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    .front {
-      transform: translateZ(100px);
-      background-color: #f00;
-    }
-
-    .back {
-      transform: translateZ(-100px);
-      background-color: #0f0;
-    }
-
-    .left {
-      transform: rotateY(90deg) translateZ(100px);
-      background-color: #00f;
-    }
-
-    .right {
-      transform: rotateY(-90deg) translateZ(100px);
-      background-color: #ff0;
-    }
-
-    .top {
-      transform: rotateX(90deg) translateZ(100px);
-      background-color: #0ff;
-    }
-
-    .bottom {
-      transform: rotateX(-90deg) translateZ(100px);
-      background-color: #f0f;
-    }
+        perspective: 1000px;
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+        position: relative;
+        border: 1px solid #ccc;
+      }
+      
+      .cube {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.2s;
+        cursor: move;
+        user-select: none;
+        touch-action: none;
+      }
+      
+      .face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      
+      .front {
+        transform: translateZ(200px);
+        background-color: #f00;
+      }
+      
+      .back {
+        transform: translateZ(-200px);
+        background-color: #0f0;
+      }
+      
+      .left {
+        transform: rotateY(90deg) translateZ(200px);
+        background-color: #00f;
+      }
+      
+      .right {
+        transform: rotateY(-90deg) translateZ(200px);
+        background-color: #ff0;
+      }
+      
+      .top {
+        transform: rotateX(90deg) translateZ(200px);
+        background-color: #0ff;
+      }
+      
+      .bottom {
+        transform: rotateX(-90deg) translateZ(200px);
+        background-color: #f0f;
+      }
   </style>
 </head>
 <body>
@@ -74,23 +79,32 @@
     const cube = document.querySelector('.cube');
     let isDragging = false;
     let lastX, lastY;
-
+    let initialX, initialY;
+    let initialRotationX = 0;
+    let initialRotationY = 0;
+    
     cube.addEventListener('mousedown', (e) => {
       isDragging = true;
-      lastX = e.clientX * 5;
-      lastY = e.clientY * 5;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      initialX = e.clientX - cube.offsetLeft;
+      initialY = e.clientY - cube.offsetTop;
+      initialRotationX = cube.style.transform.match(/rotateX\((-?\d+\.?\d*)deg\)/)[1];
+      initialRotationY = cube.style.transform.match(/rotateY\((-?\d+\.?\d*)deg\)/)[1];
     });
-
+    
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
         const dx = e.clientX - lastX;
         const dy = e.clientY - lastY;
         lastX = e.clientX;
         lastY = e.clientY;
-        cube.style.transform = `rotateX(${dy}deg) rotateY(${dx}deg)`;
+        const rotationX = initialRotationX + dy;
+        const rotationY = initialRotationY + dx;
+        cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg) translate(${dx}px, ${dy}px)`;
       }
     });
-
+    
     document.addEventListener('mouseup', () => {
       isDragging = false;
     });
