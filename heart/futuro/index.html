@@ -8,7 +8,10 @@
         width: 200px;
         height: 200px;
         margin: 0 auto;
-        position: relative;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         border: 1px solid #ccc;
       }
       
@@ -17,7 +20,7 @@
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
-        transition: transform 0.2s;
+        transition: transform 0.1s;
         cursor: move;
         user-select: none;
         touch-action: none;
@@ -33,32 +36,32 @@
       }
       
       .front {
-        transform: translateZ(200px);
+        transform: translateZ(100px);
         background-color: #f00;
       }
       
       .back {
-        transform: translateZ(-200px);
+        transform: translateZ(-100px);
         background-color: #0f0;
       }
       
       .left {
-        transform: rotateY(90deg) translateZ(200px);
+        transform: rotateY(90deg) translateZ(100px);
         background-color: #00f;
       }
       
       .right {
-        transform: rotateY(-90deg) translateZ(200px);
+        transform: rotateY(-90deg) translateZ(100px);
         background-color: #ff0;
       }
       
       .top {
-        transform: rotateX(90deg) translateZ(200px);
+        transform: rotateX(90deg) translateZ(100px);
         background-color: #0ff;
       }
       
       .bottom {
-        transform: rotateX(-90deg) translateZ(200px);
+        transform: rotateX(-90deg) translateZ(100px);
         background-color: #f0f;
       }
   </style>
@@ -77,11 +80,11 @@
 
   <script>
     const cube = document.querySelector('.cube');
-    let isDragging = false;
+    const matrix = new DOMMatrix();
+    let rotation = [0, 0];
     let lastX, lastY;
     let initialX, initialY;
-    let rotation = [0, 0];
-    const matrix = new DOMMatrix();
+    let isDragging = false;
     
     cube.addEventListener('mousedown', (e) => {
       isDragging = true;
@@ -102,7 +105,7 @@
         lastY = e.clientY;
         rotation[0] += dy * 0.02;
         rotation[1] += dx * 0.02;
-        matrix.setMatrixValue(`rotateX(${rotation[0]}rad) rotateY(${rotation[1]}rad) translate(${dx}px, ${dy}px)`);
+        matrix.setMatrixValue(`rotateX(${rotation[0]}rad) rotateY(${rotation[1]}rad)`);
         cube.style.transform = matrix.toString();
       }
     });
@@ -113,3 +116,4 @@
   </script>
 </body>
 </html>
+
