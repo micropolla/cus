@@ -5,8 +5,8 @@
   <style>
     .cube-container {
         perspective: 1000px;
-        width: 400px;
-        height: 400px;
+        width: 200px;
+        height: 200px;
         margin: 0 auto;
         position: relative;
         border: 1px solid #ccc;
@@ -100,8 +100,8 @@
         const dy = e.clientY - lastY;
         lastX = e.clientX;
         lastY = e.clientY;
-        rotation[0] += dy * 0.01;
-        rotation[1] += dx * 0.01;
+        rotation[0] += dy * 0.02;
+        rotation[1] += dx * 0.02;
         matrix.setMatrixValue(`rotateX(${rotation[0]}rad) rotateY(${rotation[1]}rad) translate(${dx}px, ${dy}px)`);
         cube.style.transform = matrix.toString();
       }
