@@ -80,8 +80,8 @@
     let isDragging = false;
     let lastX, lastY;
     let initialX, initialY;
-    let initialRotationX = 0;
-    let initialRotationY = 0;
+    let rotation = [0, 0];
+    const matrix = new DOMMatrix();
     
     cube.addEventListener('mousedown', (e) => {
       isDragging = true;
@@ -89,8 +89,9 @@
       lastY = e.clientY;
       initialX = e.clientX - cube.offsetLeft;
       initialY = e.clientY - cube.offsetTop;
-      initialRotationX = cube.style.transform.match(/rotateX\((-?\d+\.?\d*)deg\)/)[1];
-      initialRotationY = cube.style.transform.match(/rotateY\((-?\d+\.?\d*)deg\)/)[1];
+      matrix.fromMatrix(cube.style.transform);
+      rotation[0] = matrix.m11;
+      rotation[1] = matrix.m12;
     });
     
     document.addEventListener('mousemove', (e) => {
@@ -99,9 +100,10 @@
         const dy = e.clientY - lastY;
         lastX = e.clientX;
         lastY = e.clientY;
-        const rotationX = initialRotationX + dy;
-        const rotationY = initialRotationY + dx;
-        cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg) translate(${dx}px, ${dy}px)`;
+        rotation[0] += dy * 0.01;
+        rotation[1] += dx * 0.01;
+        matrix.setMatrixValue(`rotateX(${rotation[0]}rad) rotateY(${rotation[1]}rad) translate(${dx}px, ${dy}px)`);
+        cube.style.transform = matrix.toString();
       }
     });
     
