@@ -1,6 +1,5 @@
-/* Everthing black and centered */
-
-body {
-    background-color: black;
+.heart {
+    font-size: 100px;
+    color: red;
     text-align: center;
 }
