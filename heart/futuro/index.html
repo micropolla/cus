@@ -77,8 +77,8 @@
 
     cube.addEventListener('mousedown', (e) => {
       isDragging = true;
-      lastX = e.clientX;
-      lastY = e.clientY;
+      lastX = e.clientX * 5;
+      lastY = e.clientY * 5;
     });
 
     document.addEventListener('mousemove', (e) => {
