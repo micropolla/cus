@@ -6,6 +6,5 @@ layout: default
 
 _i hate ni_
 
-[macumba cat foto](./../assets/img/logo.png)
-
+[Download Macumba Cat Foto](./../download/logo.png "Download Macumba Cat Foto")
 [back](./)
