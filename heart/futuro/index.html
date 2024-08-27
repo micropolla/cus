@@ -79,41 +79,94 @@
   </div>
 
   <script>
-    const cube = document.querySelector('.cube');
-    const matrix = new DOMMatrix();
-    let rotation = [0, 0];
-    let lastX, lastY;
-    let initialX, initialY;
-    let isDragging = false;
-    
-    cube.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      initialX = e.clientX - cube.offsetLeft;
-      initialY = e.clientY - cube.offsetTop;
-      matrix.fromMatrix(cube.style.transform);
-      rotation[0] = matrix.m11;
-      rotation[1] = matrix.m12;
-    });
-    
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        const dx = e.clientX - lastX;
-        const dy = e.clientY - lastY;
-        lastX = e.clientX;
-        lastY = e.clientY;
-        rotation[0] += dy * 0.02;
-        rotation[1] += dx * 0.02;
-        matrix.setMatrixValue(`rotateX(${rotation[0]}rad) rotateY(${rotation[1]}rad)`);
-        cube.style.transform = matrix.toString();
-      }
-    });
-    
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+// Get the cube element
+    const cubeElement = document.getElementById('cube');
+
+    // Define the rotation variables
+    let rotationX = 0;
+    let rotationY = 0;
+    let rotationZ = 0;
+
+    // Define the velocity variables
+    let velocityX = 0;
+    let velocityY = 0;
+    let velocityZ = 0;
+
+    // Define the acceleration variables
+    let accelerationX = 0;
+    let accelerationY = 0;
+    let accelerationZ = 0;
+
+    // Define the friction variable
+    const friction = 0.98;
+
+    // Define the rotation speed variable
+    const rotationSpeed = 0.02;
+
+    // Define the animation loop
+    function animate() {
+    // Update the rotation variables
+    rotationX += velocityX;
+    rotationY += velocityY;
+    rotationZ += velocityZ;
+
+    // Update the velocity variables
+    velocityX += accelerationX;
+    velocityY += accelerationY;
+    velocityZ += accelerationZ;
+
+    // Apply friction
+    velocityX *= friction;
+    velocityY *= friction;
+    velocityZ *= friction;
+
+    // Update the cube's transform
+    cubeElement.style.transform = `
+        rotateX(${rotationX}rad)
+        rotateY(${rotationY}rad)
+        rotateZ(${rotationZ}rad)
+    `;
+
+    // Request the next frame
+    requestAnimationFrame(animate);
+    }
+
+    // Define the event handlers
+    function handleMouseMove(e) {
+    // Calculate the delta rotation
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    lastX = e.clientX;
+    lastY = e.clientY;
+
+    // Update the acceleration variables
+    accelerationX = dy * rotationSpeed;
+    accelerationY = dx * rotationSpeed;
+    }
+
+    function handleMouseDown(e) {
+    // Set the initial rotation values
+    rotationX = 0;
+    rotationY = 0;
+    rotationZ = 0;
+
+    // Set the initial velocity values
+    velocityX = 0;
+    velocityY = 0;
+    velocityZ = 0;
+
+    // Set the initial acceleration values
+    accelerationX = 0;
+    accelerationY = 0;
+    accelerationZ = 0;
+    }
+
+    // Add the event listeners
+    cubeElement.addEventListener('mousemove', handleMouseMove);
+    cubeElement.addEventListener('mousedown', handleMouseDown);
+
+    // Start the animation loop
+    animate();
   </script>
 </body>
 </html>
-
