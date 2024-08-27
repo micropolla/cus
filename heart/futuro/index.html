@@ -96,6 +96,9 @@
     const friction = 0.98;
   
     function animate() {
+      // Dampen the acceleration
+      accelerationX *= 0.3;
+      accelerationY *= 0.3;
       // Update the rotation variables
       rotationX += velocityX;
       rotationY += velocityY;
