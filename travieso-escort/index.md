@@ -1,8 +1,10 @@
 # Travieso escort bot
 
-[actualizaciones](./upd)
-[copyright y derechos de uso](./copyright.md)
+[actualizaciones](./upd).
 
+[copyright y derechos de uso](./copyright.md).
+
+## que es el travieso escort
 El travieso escort es un bot de Discord solamente disponible para ciertas personas permitidas.
 El bot cuenta con una gran variedad de comandos de diferentes topicos como pueden ser:
 
