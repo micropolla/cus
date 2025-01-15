@@ -45,4 +45,3 @@ este acuerdo tiene cosas como:
 * pipipipi
 
 # TRAVIESO ESCORT MEJOR BOT DE DISCORD
-[micropolla](./micropolla.md)
